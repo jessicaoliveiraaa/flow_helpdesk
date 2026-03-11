@@ -1,8 +1,11 @@
 import type { AuthResponse, Comment, Ticket, User } from '../types'
 
-const API_URL =
-	import.meta.env.VITE_API_URL ??
-	(import.meta.env.PROD ? 'https://flow-helpdesk.onrender.com' : 'http://localhost:3333')
+const isLocalEnvironment =
+	typeof window !== 'undefined' && ['localhost', '127.0.0.1'].includes(window.location.hostname)
+
+const API_URL = isLocalEnvironment
+	? import.meta.env.VITE_API_URL ?? 'http://localhost:3333'
+	: 'https://flow-helpdesk.onrender.com'
 
 type RequestConfig = {
 	method?: 'GET' | 'POST' | 'PATCH' | 'DELETE'
